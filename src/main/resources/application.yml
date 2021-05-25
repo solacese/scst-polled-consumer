@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    stream:
+      binders:
+        solace:
+          environment:
+            solace:
+              java:
+                clientPassword: default
+                clientUsername: default
+                connectRetries: 0
+                connectRetriesPerHost: 0
+                host: tcp://localhost:55555
+                msgVpn: default
+          type: solace
+      bindings:
+       poller-in-0:                   #follows functional naming pattern
+          binder: solace
+          group: pollerGroup
+      pollable-source: poller         #the actual queue we want to poll (gets converted to poller-in-0)
+      poller:
+        max-messages-per-poll: 1      #how many messages to read on each poll
